@@ -346,7 +346,7 @@ Major changes after the final illustration may require an additional fee.</p>
       const fanarts = galleryItems.filter(item => item.section === 'fanart');
 
       const renderCard = (item, index) => `
-        <button class="group overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-200 text-left gallery-card min-w-[160px] md:min-w-[200px] flex-shrink-0 snap-start" data-index="${index}">
+        <button class="group overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-200 text-left gallery-card w-full" data-index="${index}">
           <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" class="aspect-[3/4] object-cover w-full gallery-image">
           <div class="p-4">
             <p class="font-medium text-sm">${currentLang === 'jp' ? item.titleJp : item.titleEn}</p>
@@ -358,7 +358,7 @@ Major changes after the final illustration may require an additional fee.</p>
         <h3 class="text-xl font-semibold mt-6 mb-3">Original</h3>
         <div class="relative">
   <button type="button" class="gallery-prev hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-slate-200 shadow rounded-full w-10 h-10 items-center justify-center">‹</button>
-  <div class="flex overflow-x-auto gap-4 md:gap-6 pb-2 snap-x snap-mandatory scroll-smooth gallery-row">
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6 gallery-row">
 
           ${originals.map((item, i) => renderCard(item, i)).join('')}
         </div>
