@@ -346,7 +346,7 @@ Major changes after the final illustration may require an additional fee.</p>
       const fanarts = galleryItems.filter(item => item.section === 'fanart');
 
       const renderCard = (item, index) => `
-        <button class="group overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-200 text-left gallery-card min-w-[220px] md:min-w-[260px] flex-shrink-0 snap-start" data-index="${index}">
+        <button class="group overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-200 text-left gallery-card min-w-[160px] md:min-w-[200px] flex-shrink-0 snap-start" data-index="${index}">
           <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" class="aspect-[3/4] object-cover w-full gallery-image">
           <div class="p-4">
             <p class="font-medium text-sm">${currentLang === 'jp' ? item.titleJp : item.titleEn}</p>
