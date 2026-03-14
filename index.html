@@ -302,7 +302,9 @@ Major changes after the final illustration may require an additional fee.</p>
     };
 
     document.getElementById('link-x').href = CONFIG.xUrl;
-   
+    document.getElementById('link-instagram').href = CONFIG.instagramUrl;
+    document.getElementById('link-pixiv').href = CONFIG.pixivUrl;
+
     const form = document.getElementById('commissionForm');
     if (CONFIG.formAction) {
       form.action = CONFIG.formAction;
@@ -330,7 +332,7 @@ Major changes after the final illustration may require an additional fee.</p>
       const fanarts = galleryItems.filter(item => item.section === 'fanart');
 
       const renderCard = (item, index) => `
-        <button class="group overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-200 text-left gallery-card" data-index="${index}">
+        <button class="group overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-200 text-left gallery-card min-w-[220px] md:min-w-[260px] flex-shrink-0 snap-start" data-index="${index}">
           <img src="${item.src}" alt="${item.alt}" loading="lazy" decoding="async" class="aspect-[3/4] object-cover w-full gallery-image">
           <div class="p-4">
             <p class="font-medium text-sm">${currentLang === 'jp' ? item.titleJp : item.titleEn}</p>
@@ -340,15 +342,26 @@ Major changes after the final illustration may require an additional fee.</p>
 
       mount.innerHTML = `
         <h3 class="text-xl font-semibold mt-6 mb-3">Original</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div class="relative">
+  <button type="button" class="gallery-prev hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-slate-200 shadow rounded-full w-10 h-10 items-center justify-center">‹</button>
+  <div class="flex overflow-x-auto gap-4 md:gap-6 pb-2 snap-x snap-mandatory scroll-smooth gallery-row">
+
           ${originals.map((item, i) => renderCard(item, i)).join('')}
         </div>
+  <button type="button" class="gallery-next hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-slate-200 shadow rounded-full w-10 h-10 items-center justify-center">›</button>
+</div>
+
         <h3 class="text-xl font-semibold mt-10 mb-3">Fan Art</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        <div class="relative">
+  <button type="button" class="gallery-prev hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 border border-slate-200 shadow rounded-full w-10 h-10 items-center justify-center">‹</button>
+  <div class="flex overflow-x-auto gap-4 md:gap-6 pb-2 snap-x snap-mandatory scroll-smooth gallery-row">
+
           ${fanarts.map((item, i) => renderCard(item, originals.length + i)).join('')}
+        </div>
         </div>`;
 
       bindLightbox();
+      bindGalleryRows();
     }
 
     const templates = {
@@ -413,6 +426,23 @@ Major changes after the final illustration may require an additional fee.</p>
 <script>
 // Lightbox gallery
 let currentLightboxIndex = 0;
+function bindGalleryRows() {
+  const rows = document.querySelectorAll('.gallery-row');
+  rows.forEach((row) => {
+    const wrapper = row.parentElement;
+    if (!wrapper) return;
+    const prevBtn = wrapper.querySelector('.gallery-prev');
+    const nextBtn = wrapper.querySelector('.gallery-next');
+    const scrollAmount = () => Math.max(row.clientWidth * 0.8, 260);
+    if (prevBtn) {
+      prevBtn.onclick = () => row.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+    }
+    if (nextBtn) {
+      nextBtn.onclick = () => row.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    }
+  });
+}
+
 function bindLightbox() {
   let touchStartX = 0;
   let touchEndX = 0;
