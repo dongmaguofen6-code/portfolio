@@ -92,6 +92,22 @@
     <div class="mt-6 text-xs text-gray-500" data-jp="※ 画像を増やすときは、コード下部の galleryItems に1行追加してください。Original / Fan Art の分類もそこで変更できます。" data-en="To add more works, add one line to galleryItems at the bottom of the code. You can also switch between Original and Fan Art there.">※ 画像を増やすときは、コード下部の galleryItems に1行追加してください。Original / Fan Art の分類もそこで変更できます。</div>
   </section>
 
+  <section class="max-w-6xl mx-auto px-6 mb-16">
+    <h2 class="text-3xl font-semibold mb-6" data-jp="SNS" data-en="SNS">SNS</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <a href="https://x.com/ZI15866" target="_blank" rel="noopener noreferrer" class="block rounded-2xl bg-white border border-slate-200 shadow-sm p-5 hover:shadow-md transition">
+        <p class="text-sm text-gray-500 mb-2">X</p>
+        <p class="font-semibold text-lg mb-1">@ZI15866</p>
+        <p class="text-sm text-gray-600" data-jp="最新の投稿やお知らせはこちら" data-en="Latest posts and updates here">最新の投稿やお知らせはこちら</p>
+      </a>
+      <div class="rounded-2xl bg-slate-50 border border-slate-200 p-5">
+        <p class="text-sm text-gray-500 mb-2" data-jp="お知らせ" data-en="Note">お知らせ</p>
+        <p class="font-semibold mb-1" data-jp="SNSは現在Xのみ掲載しています" data-en="Currently only X is listed">SNSは現在Xのみ掲載しています</p>
+        <p class="text-sm text-gray-600" data-jp="プロフィールや最新状況はXからご確認ください。" data-en="Please check X for profile details and latest status.">プロフィールや最新状況はXからご確認ください。</p>
+      </div>
+    </div>
+  </section>
+
   <section id="pricing" class="max-w-5xl mx-auto px-6 mb-20">
     <h2 class="text-3xl font-semibold mb-2" data-jp="料金" data-en="Pricing">料金</h2>
     <p class="text-sm text-gray-500 mb-6" data-jp="※料金はあくまで目安です。内容や作業量によって変動する場合があります。" data-en="Prices are estimates and may change depending on the complexity.">※料金はあくまで目安です。内容や作業量によって変動する場合があります。</p>
@@ -302,8 +318,6 @@ Major changes after the final illustration may require an additional fee.</p>
     };
 
     document.getElementById('link-x').href = CONFIG.xUrl;
-    document.getElementById('link-instagram').href = CONFIG.instagramUrl;
-    document.getElementById('link-pixiv').href = CONFIG.pixivUrl;
 
     const form = document.getElementById('commissionForm');
     if (CONFIG.formAction) {
@@ -385,6 +399,7 @@ Major changes after the final illustration may require an additional fee.</p>
       document.getElementById('process-note-en').classList.toggle('hidden', lang !== 'en');
       document.getElementById('langToggle').textContent = lang === 'jp' ? 'English' : '日本語';
       renderGallery();
+    showTemplate('icon');
     }
 
     document.getElementById('langToggle').addEventListener('click', () => {
@@ -398,10 +413,16 @@ Major changes after the final illustration may require an additional fee.</p>
       document.getElementById('templateBox').textContent = templates[key];
       ['icon', 'character', 'illustration', 'youtube'].forEach(name => {
         const btn = document.getElementById(`tab-${name}`);
-        if (btn) btn.classList.remove('bg-blue-600', 'text-white');
+        if (btn) {
+          btn.classList.remove('bg-blue-600', 'text-white');
+          btn.classList.add('bg-white');
+        }
       });
       const activeBtn = document.getElementById(`tab-${key}`);
-      if (activeBtn) activeBtn.classList.add('bg-blue-600', 'text-white');
+      if (activeBtn) {
+        activeBtn.classList.add('bg-blue-600', 'text-white');
+        activeBtn.classList.remove('bg-white');
+      }
     }
 
     function copyTemplate() {
